@@ -1,52 +1,53 @@
-import { GetStaticPaths, GetStaticProps } from "next";
-import {
-  getAllPostIds,
-  getPostData,
-  getSortedPostsData,
-} from "../../../lib/posts";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { getPostById, getSortedPostsData } from "../../../lib/posts";
 import { Layout } from "../../components/Layout";
 import { Date } from "../../components/Date";
 import utilStyles from "../../../styles/utils.module.scss";
 import Head from "next/head";
+import { Post } from "../../types/Post.types";
 
-export default function Post({
-  postData,
-}: {
-  postData: {
-    title: string;
-    date: string;
-    contentHtml: string;
-  };
-}) {
+type PostProps = {
+  post: Post;
+};
+
+const Post: NextPage<PostProps> = ({ post }) => {
   return (
     <Layout>
       <Head>
-        <title>{postData.title}</title>
+        <title>{post.title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+        <h1 className={utilStyles.headingXl}>{post.title}</h1>
         <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
+          <Date dateString={post.date} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </article>
     </Layout>
   );
-}
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllPostIds();
+  const data = await getSortedPostsData();
+  const paths = data.map((datum) => ({
+    params: {
+      id: datum.id,
+    },
+  }));
   return {
     paths,
     fallback: false,
   };
 };
 
+//それぞれのparamsに対して(配列の要素数だけ)getStaticPropsが呼ばれる
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = await getPostData(params?.id as string);
+  const post = await getPostById(params?.id as string);
   return {
     props: {
-      postData,
+      post,
     },
   };
 };
+
+export default Post;

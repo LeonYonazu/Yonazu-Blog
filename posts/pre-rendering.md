@@ -1,6 +1,12 @@
 ---
 title: 'Two Forms of Pre-rendering'
 date: '2020-01-01'
+id: "いい"
+category: "book"
+tags:
+  - "Bootstrap"
+  - "Sass"
+description: "Bootstrapにおいて既存のwidthクラスを拡張して、カスタマイズする方法について書きました。今回はwidthについてですが、heightなどでも同じです。"
 ---
 
 Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
