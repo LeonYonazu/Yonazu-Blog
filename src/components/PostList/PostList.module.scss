@@ -1,0 +1,11 @@
+.posts {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+@media screen and (min-width: 700px) {
+  .posts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

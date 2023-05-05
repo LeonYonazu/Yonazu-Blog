@@ -4,6 +4,8 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 import { Post } from "../src/types/Post.types";
+import { Tag } from "../src/types/Tag.types";
+import { Category } from "../src/types/Category.types";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 // ここでは、
@@ -41,4 +43,20 @@ export async function getPostById(id: string) {
   const allPosts = await getSortedPostsData();
   const targetPost = allPosts.find((post) => post.id == id);
   return targetPost;
+}
+
+export async function getPostsByTag(tag: Tag) {
+  const allPosts = await getSortedPostsData();
+  const targetPosts = allPosts.filter((post) => {
+    return post.tags.includes(tag);
+  });
+  return targetPosts;
+}
+
+export async function getPostsByCategory(category: Category) {
+  const allPosts = await getSortedPostsData();
+  const targetPosts = allPosts.filter((post) => {
+    return post.category === category;
+  });
+  return targetPosts;
 }

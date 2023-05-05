@@ -8,11 +8,9 @@ export default {
 
 export const Default: StoryObj<typeof PostCard> = {
   args: {
-    onClick: () => console.log("clicked"),
     title: "title",
     date: "2021-01-01",
     id: "id",
-    category: "tech",
     tags: ["Swift", "JavaScript"],
   },
 };

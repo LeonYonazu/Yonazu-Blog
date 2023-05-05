@@ -27,6 +27,8 @@ const Post: NextPage<PostProps> = ({ post }) => {
   );
 };
 
+
+//ありうる全てのidに対してページを作成したい
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getSortedPostsData();
   const paths = data.map((datum) => ({
