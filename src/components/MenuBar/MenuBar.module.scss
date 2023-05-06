@@ -1,0 +1,19 @@
+.menues {
+  background-color: rgb(235 235 235);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.links {
+  color: rgb(6 40 61);
+  font-weight: 600;
+  margin: 0.5rem;
+}
+
+.links:hover {
+  text-decoration: underline;
+  text-underline-offset: -0.2em;
+  text-decoration-skip-ink: none;
+  text-decoration-color: hsla(90, 62%, 71%, 0.5);
+  text-decoration-thickness: 0.5em;
+}
