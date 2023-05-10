@@ -1,6 +1,6 @@
 ---
-title: 'Two Forms of Pre-rendering'
-date: '2020-01-01'
+title: "Two Forms of Pre-rendering"
+date: "2020-01-01"
 id: "いい"
 category: "book"
 tags:
@@ -15,3 +15,7 @@ Next.js has two forms of pre-rendering: **Static Generation** and **Server-side 
 - **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
 
 Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+[ソースの該当部分](https://github.com/sass/sass/blob/main/accepted/module-system.md)
+:grin:
+`ソースコード`
+

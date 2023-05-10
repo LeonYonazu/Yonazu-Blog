@@ -5,10 +5,50 @@ import { remark } from "remark";
 import html from "remark-html";
 import { Post } from "../src/types/Post.types";
 import { Tag } from "../src/types/Tag.types";
-import { Category } from "../src/types/Category.types";
+import { Category, categories } from "../src/types/Category.types";
+import { convertMarkdownToHtml } from "./convert-markdown";
+
+const generateBlogFromData = async (
+  data: any,
+  content: string
+): Promise<Post> => {
+  const { title, date, id, category, tags, description } = data;
+
+  const isTagValidated = (targets: string[]): boolean => {
+    return targets.every((target) => tags.includes(target));
+  };
+
+  if (
+    typeof title !== "string" ||
+    typeof date !== "string" ||
+    typeof id !== "string" ||
+    !categories.includes(category) ||
+    !isTagValidated(tags) ||
+    typeof description !== "string"
+  ) {
+    throw Error("some data are not applicable to Post");
+  }
+
+  try {
+    const convertedBody = await convertMarkdownToHtml(content, date);
+
+    const post: Post = {
+      title,
+      date,
+      id,
+      category,
+      tags,
+      content: convertedBody,
+      description,
+    };
+
+    return post;
+  } catch {
+    throw Error("some error are occured while converting markdown");
+  }
+};
 
 const postsDirectory = path.join(process.cwd(), "posts");
-// ここでは、
 //①getStaticPathsで使うためのgetPostById関数
 //②getSortedPostData関数(getStaticPropsなどで使う)を作成する
 export const getSortedPostsData = async () => {
@@ -20,14 +60,11 @@ export const getSortedPostsData = async () => {
         "utf-8"
       );
       const matterResult = matter(fileContent);
-      const processedContent = await remark()
-        .use(html)
-        .process(matterResult.content);
-      const contentHtml = processedContent.toString();
-      return {
-        ...(matterResult.data as Omit<Post, "content">),
-        content: contentHtml,
-      };
+      const data = matterResult.data;
+      const content = matterResult.content;
+
+      const post = await generateBlogFromData(data, content);
+      return post;
     })
   );
   return allPostsData.sort((a, b) => {

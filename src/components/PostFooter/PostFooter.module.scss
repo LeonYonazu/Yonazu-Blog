@@ -1,0 +1,41 @@
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+  list-style: none;
+  padding: 0;
+}
+
+.tag {
+  opacity: 0.7;
+  background-color: rgb(182 227 136);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  margin: 0.25rem 0.25rem 0.25rem 0;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+  margin: 2.5rem 0 2.5rem 0.5rem;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+}
+
+.clip {
+  margin-left: 0.75rem;
+  position: relative;
+}
+
+.popup {
+  position: absolute;
+  top: -2rem;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  color: rgb(148 163 184);
+}

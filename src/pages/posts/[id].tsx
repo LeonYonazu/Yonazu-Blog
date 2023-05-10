@@ -5,6 +5,8 @@ import { Date } from "../../components/Date";
 import utilStyles from "../../../styles/utils.module.scss";
 import Head from "next/head";
 import { Post } from "../../types/Post.types";
+import { PostFooter } from "../../components/PostFooter";
+import { PostWrapper } from "../../components/PostWrapper";
 
 type PostProps = {
   post: Post;
@@ -16,17 +18,10 @@ const Post: NextPage<PostProps> = ({ post }) => {
       <Head>
         <title>{post.title}</title>
       </Head>
-      <article>
-        <h1 className={utilStyles.headingXl}>{post.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={post.date} />
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
-      </article>
+      <PostWrapper post={post} />
     </Layout>
   );
 };
-
 
 //ありうる全てのidに対してページを作成したい
 export const getStaticPaths: GetStaticPaths = async () => {
