@@ -1,8 +1,8 @@
 import { Post } from "../../types/Post.types";
 import { Tag } from "../../types/Tag.types";
 import styles from "./PostFooter.module.scss";
-import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 type PostFooterProps = {
   tags: Tag[];
@@ -13,6 +13,7 @@ const PostFooter = (props: PostFooterProps) => {
   const { tags, post } = props;
   const url = `https://twitter.com/share?url=https://www.yukendev.com/blogs/${post.id}&text=${post.title}`;
   const [hidden, setHidden] = useState(true);
+  const router = useRouter();
   const copyToClipboard = () => {
     try {
       navigator.clipboard.writeText(location.href);
@@ -30,11 +31,18 @@ const PostFooter = (props: PostFooterProps) => {
       <ul className={styles.tags}>
         {tags.map((tag, index) => {
           return (
-            <Link href={`/tags/${tag}`}>
-              <li className={styles.tag} key={index}>
-                {tag}
-              </li>
-            </Link>
+            <li
+              className={styles.tag}
+              key={index}
+              onClick={() => {
+                router.push({
+                  pathname: "/tags/[tag]",
+                  query: { tag },
+                });
+              }}
+            >
+              {tag}
+            </li>
           );
         })}
       </ul>

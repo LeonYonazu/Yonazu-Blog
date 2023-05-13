@@ -1,4 +1,3 @@
-// TODO: SVGをコンポーネント化
 import styles from "./CategoryIcons.module.scss";
 import Link from "next/link";
 

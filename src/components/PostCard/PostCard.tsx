@@ -5,7 +5,7 @@ import utilStyles from "../../../styles/utils.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const PostCard = ({ title, date, id, tags, onClick }: PostCardProps) => {
+const PostCard = ({ title, date, id, tags }: PostCardProps) => {
   const router = useRouter();
   return (
     <div className={styles.card}>
@@ -13,27 +13,32 @@ const PostCard = ({ title, date, id, tags, onClick }: PostCardProps) => {
         <time dateTime={date} className={utilStyles.textSm}>
           {date}
         </time>
-        {/* ①Linkコンポーネントを使う方法 */}
-        <h3 className={styles.title}>
-          <Link href={`/posts/${id}`}>{title}</Link>
-        </h3>
-        {/* ②router.pushを使う方法
         <h3
           className={styles.title}
           onClick={() => {
-            router.push(`/posts/${id}`);
+            router.push({
+              pathname: "/posts/[id]",
+              query: { id },
+            });
           }}
         >
           {title}
-        </h3> */}
+        </h3>
         <ul className={styles.tags}>
           {tags.map((tag, index) => {
             return (
-              <Link href={`/tags/${tag}`}>
-                <li className={styles.tag} key={index}>
-                  {tag}
-                </li>
-              </Link>
+              <li
+                className={styles.tag}
+                key={index}
+                onClick={() => {
+                  router.push({
+                    pathname: "/tags/[tag]",
+                    query: { tag },
+                  });
+                }}
+              >
+                {tag}
+              </li>
             );
           })}
         </ul>
