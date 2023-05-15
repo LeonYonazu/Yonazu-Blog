@@ -13,15 +13,15 @@ export const nameLink = [
   },
   {
     name: "About",
-    link: "/",
+    link: "https://github.com/LeonYonazu",
   },
   {
     name: "Twitter",
-    link: "/",
+    link: "https://github.com/LeonYonazu",
   },
   {
     name: "GitHub",
-    link: "/",
+    link: "https://github.com/LeonYonazu",
   },
 ];
 
